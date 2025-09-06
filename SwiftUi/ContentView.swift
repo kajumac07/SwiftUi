@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var imageViewModel: ImageViewModel
     var body: some View {
         
         NavigationView{
@@ -23,7 +25,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(imageViewModel: ImageViewModel())
 }
 
 struct MyImageView: View {

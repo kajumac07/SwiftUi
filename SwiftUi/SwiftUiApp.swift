@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(imageViewModel: ImageViewModel())
         }
     }
 }

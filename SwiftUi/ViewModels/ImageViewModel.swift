@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class ImageViewModel {
+class ImageViewModel: ObservableObject {
 
     @Published var imageModel = [ImageModel]()
     func loadData() {
