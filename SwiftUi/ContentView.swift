@@ -1,26 +1,20 @@
-//
-//  ContentView.swift
-//  SwiftUi
-//
-//  Created by Atul Tiwari on 06/09/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     
     @ObservedObject var imageViewModel: ImageViewModel
+    
     var body: some View {
-        
-        NavigationView{
-            VStack{
-                MyImageView()
-                Text("Hee Hee hey")
-                 Text("Hee Hee hey")
-            }.navigationTitle("Home Screen")
+        NavigationView {
+            List(imageViewModel.imageModel) { model in
+                VStack {
+                    MyImageView(url: model.downloadUrl ?? "")
+                    Text(model.author ?? "").font(.system(size: 20, weight: .bold, design: .rounded))
+                }
+            }
+            .onAppear(perform: imageViewModel.loadData)
+            .navigationTitle("Home Screen")
         }
-        
-       
     }
 }
 
@@ -29,11 +23,14 @@ struct ContentView: View {
 }
 
 struct MyImageView: View {
+    var url: String
     var body: some View {
-        AsyncImage(url: URL(string: "https://cdn.mos.cms.futurecdn.net/hf2CQvHr9KNtKuUSDkeQVH.jpg")) { image in
+        AsyncImage(url: URL(string: url)) { image in
             image
                 .resizable()
-                .scaledToFit().aspectRatio(contentMode: .fit).cornerRadius(20)
+                .scaledToFit()
+                .aspectRatio(contentMode: .fit)
+                .cornerRadius(20)
         } placeholder: {
             ProgressView()
         }
